@@ -63,6 +63,10 @@ function App() {
                 setBalance(balance);
             });
 
+            readContract('getPlayerNumber').then(numberOfPlayers => {
+                setPlayerCount(numberOfPlayers as bigint)
+            })
+
             checkIfPlayerInGame().then(isInGame => {
                 setIsPlayerInGame(isInGame);
             })
@@ -95,14 +99,16 @@ function App() {
                 return
             }
 
-            // Оновлюємо стан після успішної транзакції
-            setPlayerCount(playerCount + 1n);
+            readContract('getPlayerNumber').then(numberOfPlayers => {
+                setPlayerCount(numberOfPlayers as bigint)
+            })
 
             getUserBalance().then(balance => {
                 setBalance(balance);
             });
-
-
+            checkIfPlayerInGame().then(isInGame => {
+                setIsPlayerInGame(isInGame);
+            });
             getContractBalance().then(contractBalance => {
                 setContractBalance(contractBalance);
             })
